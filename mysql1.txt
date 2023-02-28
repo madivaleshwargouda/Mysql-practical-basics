@@ -1,0 +1,378 @@
+drop database school;
+show databases;
+create database school;
+use school;
+
+============>>>> CONSTRAINTS roles
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tables
+CHECK - Ensures that the values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column if no value is specified
+CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+
+============>>>> 1)PRIMARY KEY
+
+create table students(
+SID integer,
+Sname varchar(30),
+Branch varchar(30),
+Perc float,
+Primary key (SID));
+
+describe students;
+show table status;
+show tables;
+
+insert into students(SID, Sname, Branch, Perc)
+values
+(10, "mahesh", "EC", 80),
+(20, "bacha", "vv", 55),
+(30, "nanu", "cv", 77),
+(40, "ninu", "ee", 75),
+(50, "man", "cs", 80);
+
+select * from students;
+insert into students values(70,"mahesh", "jh", 88); // Its working
+
+insert into students values(70,"mahesh", "jh", 88); // primary key is not accespt duplicate entry
+
+insert into students values("mahesh", "jh", 88); // Its not working becouse compulsorys primary key should be give
+
+
+============>>>> 2) NOT NULL
+
+create table students(
+SID integer,
+Sname varchar(30),
+Branch varchar(30),
+Perc float not null,
+Primary key (SID));
+
+insert into students(SID, Sname, Branch, Perc)
+values
+(10, "mahesh", "EC", 80),
+(20, "bacha", "vv", 55),
+(30, "nanu", "cv", 77);
+
+select * from students;
+
+insert into students(SID, Sname, Perc) values (60,"mahesh",40); /// Its working
+
+insert into students values (60,"mahesh","hfh",40);  /// its working
+
+insert into students values (60,"mahesh","hfh");  /// its not working because compulsorys primary key and NOT NULL should be give
+
+
+============>>>> 3) Check
+
+create table students(
+SID integer,
+Sname varchar(30),
+Branch varchar(30),
+Perc float not null,
+Age integer,
+check (Age > 18),   /////// check constraint is used to limit the vlue range that can be placed in a column.
+Primary key (SID));
+
+describe students;
+
+insert into students(SID, Sname, Branch, Perc, Age)
+values
+(10, "mahesh", "EC", 80 , 20),
+(20, "bacha", "vv", 55, 19),
+(30, "nanu", "cv", 77, 21);
+
+select * from students;
+
+select * from students;
+insert into students(SID, Sname, Branch,Age) values (75,"mahesh","mj", 17); /// its doesn't work because check is > 18 . 
+
+
+============>>>> 4) Default
+
+Default is a constraint in sql which allows users to fill a column with the defauilt or fixed value.
+
+create table students(
+SID integer,
+Sname varchar(30),
+Branch varchar(30),
+Perc float not null,
+Age integer,
+college_name varchar(30) default 'bvb', ///default value BVB
+check (Age > 18),
+Primary key (SID));
+
+
+============>>>>  5)foreing key
+
+The FOREIGN KEY constraint is used to prevent actions that would destroy links between tables.
+
+create table students(
+SID integer,
+Sname varchar(30),
+Brach varchar(30),
+CID integer,
+primary key (SID),
+foreign key(CID) references cource(CID));
+
+create table cource(
+CID integer,
+Sname varchar(30),
+primary key(CID));
+
+select * from students;
+desc students;
+select * from cource;
+desc cource;
+show tables;
+
+============>>>>   ALTER COMMAND IN SQL
+
+(ADD, DROP, MODIFY DATATYPE, ADD CONSTRAINT UNIQUE, DROP CONSTRAINT UNIQUE[CONSTRAINTS ROLES])
+
+=> DDL Command (data definition language)
+=>To change the shcema/Structure of database
+
+* ADD column
+* Delete column
+* Modify datatype of existing column
+* set constraints link NOT NULL, PRIMARY KEY, UNIQUE KEY etc...
+* Remove constraints
+
+
+create table student
+(sid integer,
+sname varchar(30),
+perc integer);
+
+show tables;
+
+============>>>> ADD COLUMN
+
+Alter table student
+add age integer;
+
+============>>>> DROP COLUMN
+
+alter table student
+drop column age;
+
+desc student;
+
+============>>>> MODIFY DATATYPE
+
+alter table student
+modify column perc float;
+
+============>>>> ADD NOT NULL
+
+alter table student
+modify perc float not null;
+
+============>>>> ADD CONSTRAINT UNIQUE
+
+alter table student
+add email varchar(50);
+
+alter table student
+add constraint unique(email);
+ 
+============>>>> ADD PRIMARY KEY CONSTRAINT
+
+alter table student
+add constraint primary key(table_name);
+
+ADD Constraint Check
+
+alter table student
+add age integer;
+
+alter table student
+add constraint check (age>18)
+
+============>>>> DROP CONSTRAINT
+
+ ALTER TABLE STUDENT
+DROP INDEX EMAIL;
+
+
+============>>>> DROP CONSTRAINT UNIQUE(primary key)
+
+alter table student
+drop index email;
+drop primary key
+
+NOTE:::::=>
+
+============>>>>  DROP and TRUNCATE
+
+** DROP => Drop command is used to delete the complete 
+           table from the database.
+
+** TRUNCATE => truncate command will delete the data from the table 
+               not the table the data from the table. 
+
+
+drop table student;   ///delete the table from the database.
+
+truncat table student; ///delete the data from the table.
+
+
+
+============>>>>  SELECT (DML)DATA MANIPULATION LANGUAGE
+
+You want to get the data from the table.
+
+SELECT * FROM TABLE_NAME
+WHERE CONDITION
+ORDER BY COLUMN_NAME;
+
+=> * Display all condition columns
+
+=>SELECT column1,columan2 FROM table_nmae;        
+         |  
+          ----> perticular columns will be disply on the result.
+
+
+
+=> WHERE CONDTION (simple and compound)
+
+=> Relation opertion (=, <>, <, >, >=, <=) that we call it as a condtion.
+
+=> compound (and, or, not)
+
+============>>>> LIKE --> Search for pattern  /// Pattern so that mewans if you want to get 
+ 				                  the details of n employees or a students whose 
+				                  name starts with some character so that is a pattern
+
+============>>>>IN ---> ( search in multiple values)   In means will givea multiple values and if the condtion satisfies with 
+	                                        those values the result will be displayed.
+
+============>>>>BETWEEN --->  (Search in a renge) Between means the name itself indicates will give such inner range.
+
+# BETWEEN = Between a certain range
+# LiNk = Search for a pattern
+# IN = To specify multiple possible values for a column
+
+============>>>> ORDER BY
+ 
+=> ascending order or a descending order
+
+=============>>>>SELECT DISTINCT /// without repetition what are the values 
+ ex = select distinct * from table_name;
+
+Example--->
+ 
+create table students(
+sid integer,
+sname varchar(30),
+branch varchar(30),
+perc float,
+primary key(sid));
+
+# desc students;
+
+insert into students(sid, sname, branch, perc)
+values
+(1, "mahesh", "EE", 88),
+(2, "ravi", "cv", 87),
+(3, "basu", "EE", 99),
+(4, "mahesh", "EC", 75),
+(5, "nanu", "CS", 66),
+(6, "mahe", "IS", 88);
+
+1)   SELECT column1,column2,....
+     FROM table_name
+     WHERE condition;
+
+# select *from students;
+# Select Distinct sname from students; 
+
+# select * from students
+  where perc > 70;
+
+2)   SELECT column1,column2,....
+     FROM table_name
+     WHERE condition1 AND condition2 AND condition3,,; 
+
+# select *from students
+  where perc>70 AND sid>4;
+
+3)   SELECT column1,column2,....
+     FROM table_name
+     WHERE condition1 OR condition2 OR condition3,,; 
+
+# select *from students
+  where perc>70 OR sid>4;
+
+4)   SELECT column1,column2,....
+     FROM table_name
+     WHERE NOT condition;
+
+# select *from students;
+  where NOT perc> 80;
+
+5)   SELECT column1,column2,....
+     FROM table_name
+     ORDER BY column1, column2,..... ASC|DESC; 
+
+# select * from students
+  order by sname;
+
+# select * from students
+  order by sname desc;
+
+# select * from students
+  order by sname asc;
+
+6)   SELECT column_name
+     FROM table_name
+     WHERE condition
+     LIMIT number;
+
+# select * from students
+  where perc>80 LIMIT 3;
+
+# select perc from students
+  where sid=5;
+
+# select * from students
+  order by perc desc limit 3;
+
+# select * from students
+  order by perc asc limit 3;
+  
+7)   SELECT column_name
+     FROM table_name
+     WHERE column_name LINK pattern;
+
+# select * from students
+  where sname LINK 's%';
+
+
+# select * from students
+  where sname LINK '%EE%';
+
+
+8)   SELECT column_name
+     FROM table_name
+     WHERE column_name IN (value1, value2, ...);
+
+# select * from students
+  where perc In (25, 58, 25);
+
+8)   SELECT column_name
+     FROM table_name
+     WHERE column_name BETWEEN value1 AND value2;
+
+# select * from students
+  where perc between 25 AND 80;
+
+
+
+
+
