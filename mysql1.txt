@@ -233,7 +233,7 @@ ORDER BY COLUMN_NAME;
 
 => * Display all condition columns
 
-=>SELECT column1,columan2 FROM table_nmae;        
+[O=>SELECT column1,columan2 FROM table_nmae;        
          |  
           ----> perticular columns will be disply on the result.
 
@@ -365,7 +365,7 @@ values
 # select * from students
   where perc In (25, 58, 25);
 
-8)   SELECT column_name
+[I8)   SELECT column_name
      FROM table_name
      WHERE column_name BETWEEN value1 AND value2;
 
@@ -373,6 +373,188 @@ values
   where perc between 25 AND 80;
 
 
+
+
+====================>>>>>UPDAE and DELETE
+
+UPDATE =  used to modify the existing data //modify single row or multiple rows 
+	= DML
+
+update table_name
+set column1=value, column2=value,......
+where =condition;
+
+
+DELETE = used to delete specific rows from table
+	= DML (drop and truncate)
+
+syntax
+delete from table_nmae
+where condition;          /////delte specific rows
+
+delete from table_name;    //// delete all the rows
+
+
+example;;
+
+update students
+set perc=95
+where sname='mahesh';
+
+update students
+set grade="pass" 
+where perc>35 and perc<60;
+
+update students
+set grade="First class" 
+where perc>60 and perc<90;
+
+update students
+set grade="Distinction" 
+where perc>90;
+
+DELETE from student 
+where grade="pass";
+
+DELETE from student 
+where grade="first class";
+
+delete from students; ///all delete records
+
+
+
+================ AGGREGATE FUNCTION SQL
+
+# COUNT() = count of value of an attribute
+# SUN()   = Numerical values (sum of all values of an attribute)
+# AVG()   = Average of all values
+# MIN()   = Minimum value of an attribute
+# MAX()   = Maxmum value of an attribute
+
+example;;;;
+
+select count(sname) 
+from students;
+
+select count(perc) 
+from student;
+
+select count(*) 
+from students;
+
+select sum(perc) 
+from students;
+
+select avg(perc) 
+from students;
+
+select min(perc) 
+from students;
+
+select max(perc) 
+from students;
+
+
+
+===========================>>>>> GROUP BY and HAVING
+
+# these clauses  will be used in SELECT(select command it used to
+  retreive the data from the table) command
+
+GROUP BY 
+
+*Group the row based on column
+*Aggregate function
+
+HAVING
+
+*Aggregate function
+* condition on result of group by class 
+
+syntx
+
+SELECT * FROM TABLE_NAME
+GROUP BY column1, column2,.....
+
+SELECT * FROM TABLE_NAME
+GROUP BY column1,column2,... 
+HAVING condition;
+
+
+create table students(
+SID integer,
+Sname varchar(30),
+Perc float,
+gender varchar(10),
+Branch varchar(30),
+Primary key (SID));
+
+insert into students(sid, sname, branch, perc)
+values
+(1, "mahesh", 88, "M", "EE"),
+(2, "ravi", 80, "M", "cv"),
+(3, "basu", 90, "M", "EE"),
+(4, "mahesh", 70,"M", "EC",),
+(5, "nani", 91,"F", "CS",),
+(6, "mahe", 88,"F", "IS");
+
+task:=
+	GROUP BY ClASS
+
+# Finding number of students branch_wise
+	select branch,count(sid)
+	from students
+	group by branch;
+
+# finding of male students and female students
+	select gender,count(sid) 
+	from students 
+	group by gender;
+
+# Finding average percentage of male students and female students
+	select gender,avg(perc) 
+	from students 
+	group by genders; 
+
+# Finding maximum percentage from male and female students
+	select gender,max(perc) 
+	from students 
+	group by gender;
+	select branch,max(perc) 
+	from students 
+	group by branch;
+
+# Finding minimu percentage from male and female students
+	select gender,min(perc) 
+	from students 
+	group by gender;
+
+	HAVING CLASS
+
+# Finding braches having only one students
+	select branch,count(branch)
+	from students
+	group By branch
+	having count(sid)=1;
+
+# Finding branches having more then one students
+	select branch,count(branch)
+	from students
+	group By branch
+	having count(sid)>1;
+
+# Finding branches in which students having minimu percentage is greater than 70
+	select branch,min(perc)
+	from students
+	group By branch
+	having min(perc)>70;
+
+
+# Finding branches in which students having maximum percentage is greater than 90
+	select branch,max(perc)
+	from students
+	group By branch
+	having max(perc)>90;
 
 
 
