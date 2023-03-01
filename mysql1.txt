@@ -233,7 +233,7 @@ ORDER BY COLUMN_NAME;
 
 => * Display all condition columns
 
-[O=>SELECT column1,columan2 FROM table_nmae;        
+=>SELECT column1,columan2 FROM table_nmae;        
          |  
           ----> perticular columns will be disply on the result.
 
@@ -365,7 +365,7 @@ values
 # select * from students
   where perc In (25, 58, 25);
 
-[I8)   SELECT column_name
+8)   SELECT column_name
      FROM table_name
      WHERE column_name BETWEEN value1 AND value2;
 
@@ -555,6 +555,114 @@ task:=
 	from students
 	group By branch
 	having max(perc)>90;
+
+
+
+=========================Examples=====
+
+Sailors  ->sid, sname, rating,age
+Boat     ->Bid, Bname, color
+Reserver ->sid, bid, resrve_date (primary key, foreing)
+
+create table sailors(
+sid integer,
+sname varchar(30),
+rating integer,
+age integer,
+primary key(sid));
+
+# show tabels;
+
+insert into sailors values
+(101,"sundeep",9,25),
+(102,"saradhi"10,26),
+(103,"rajesh"8,28),
+(104,"ramu",6,22),
+(105,"hari"6,28),
+(106,"siva"10,30);
+
+# select * from sailors;
+
+create table boats(
+bid integer,
+bname varchar(30),
+color varchar(30),
+primary key(bid));
+
+# show tables;
+
+insert into boats values
+(1,"boat1","green"),
+(2,"boat2","red"),
+(3,"boat3","blue"),
+(4,"boat4","gold"),
+(5,"boat5","black");
+
+# select *from boats;
+
+
+create table reserves(
+sid integer,
+bid integer,
+day date,
+primary key(sid,bid),
+foreign key(sid) references sailors(sid),
+foreign key(bid) references boats(bid));
+
+# show tables;
+
+insert into reserves values
+(101,1,20230105),
+(102,2,20230115),
+(103,3,20230120),
+(104,4,20230201),
+(105,5,20230225),
+(105,1,20220120),
+(103,4,20220120);
+
+# select * from reserver;
+
+
+# Finding name and sailor who reserved boat no.3?
+	select sname from sailors,reserves
+	where sailors.sid=reserves.sid and bid=3;
+
+
+# finding name and sailor who reserves red boat?
+	select sname from sailors,reserves,boats
+	where sailors.sid=reserves.sid and 
+	reserves.bid=boats.bid and 
+	boats.color="red";
+
+
+# finding color and boats reserver by "sundeep"?
+	select color from boats,reserves,sailors
+	where boats.bid=reserves.bid and 
+	reserves.sid=sailors.sid and
+	sailors.sid and sailors.sname="sundeep";
+
+
+# finding name and sailors who have reserved alteast one boat?
+	select sname from sailors,reserves,boats
+	where sailors.sid=reserves.sid and 
+	reserves.bid=boats.bid;
+
+# delete from reserves 
+  where sid=104;
+
+# select distinct sname from sailors,reserves,boats
+  where sailors.sid=reserves.sid and reserves.bid=boats.bid;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
