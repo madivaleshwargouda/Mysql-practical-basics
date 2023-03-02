@@ -582,7 +582,7 @@ insert into sailors values
 (106,"siva"10,30);
 
 # select * from sailors;
-
+[O
 create table boats(
 bid integer,
 bname varchar(30),
@@ -654,7 +654,155 @@ insert into reserves values
   where sailors.sid=reserves.sid and reserves.bid=boats.bid;
 
 
+=========================VIEWS=======
 
+# view is virtual table constructed from existing tables
+	existing table can be from the single table or multiple table	
+
+#changes made in table reflects on view
+#changes made in view reflects on table.
+
+exmple;
+ 
+clg(DB)-->[(view)cs, (view)ece, (view)eee, (view)mech, (view)civil]
+
+
+Syntax
+
+SQL>	CREATE VIEW view_name AS
+	SELECT column1,column2,... FROM table1
+	WHERE condition;
+
+
+SQL>	CREATE VIEW view_name AS
+	SELECT column1,column2,... FROM table1,table2,...
+	WHERE table1.cul_name=Table2.cul_name AND condition;
+
+
+
+create table students(
+SID integer,
+Sname varchar(30),
+Perc float,
+gender varchar(10),
+Branch varchar(30),
+Primary key (SID));
+
+insert into students(sid, sname, branch, perc)
+values
+(1, "mahesh", 88, "M", "EEE"),
+(2, "ravi", 80, "M", "CV"),
+(3, "basu", 90, "M", "EEE"),
+(4, "mahesh", 70,"M", "ECE",),
+(5, "nani", 91,"F", "CS",),
+(6, "mahe", 88,"F", "IS");
+(7, "mahesh", 88, "M", "EEE"),
+(8, "rava", 80, "M", "CV"),
+(9, "bas", 90, "M", "EEE"),
+(10, "maha", 70,"M", "ECE",),
+(11, "nanii", 91,"F", "CS",),
+(12, "mahes", 88,"F", "IS");
+
+
+select * from students;
+
+   CREATE VIEW EEE_students AS
+-> select * from students 
+   where branch='EEE';
+
+SELECT * FROM EEE_STUDENTS;
+
+
+   CREATE VIEW CS_STUDENTS AS
+-> SELECT * FROM STUDENTS 
+   WHERE BRANCH='cs';
+	
+SELECT * FROM cs_STUDENTS;
+
+
+   CREATE VIEW IS_STUDENTS AS
+-> SELECT * FROM STUDENTS 
+   WHERE BRANCH='IS';
+
+SELECT * FROM IS_STUDENTS;
+
+   CREATE VIEW CV_STUDENTS AS
+-> SELECT * FROM STUDENTS 
+   WHERE BRANCH='CV';
+
+SELECT * FROM CV_STUDENTS;
+
+
+   CREATE VIEW ECE_STUDENTS AS
+-> SELECT * FROM STUDENTS 
+   WHERE BRANCH='ECE';
+
+SELECT * FROM ECE_STUDENTS;
+
+show table;
+
+
+UPADE STUDENTS
+SET PERC=95
+WHERE sid=3;
+
+select * from students;
+select * from EEE_students;  
+
+# when we are updating the attribute from the master table it should be
+  reflected on the VIEW also so here EEE student is view so we are 
+  changing the value in the master table it was reflected on the VIEW.
+
+VIEW to Master reflecte
+
+Upadte EEE_students
+set perc=99
+where sid=3;
+
+select * from EEE_students;
+select * from students;
+
+
+#If you are doing any manipulation in the master table it 
+ will be reflecter on the view.
+
+EXAMPLE;
+
+create table contacts
+(sid integer,
+email varchar(30),
+mobile integer,
+primary key(sid),
+foreign key(sid) references students(sid));
+
+insert into contacts values
+(1, "mahesh@kkff", 5885554),
+(2, "ravi@fhdf", 5885566),
+(3, "basu@hfhfh", 5558455),
+(4, "mahes@jdjj", 122554);
+
+select * from contacts;
+
+Create view student_contacts AS
+select students.sid,students.sname,contacts.email,contacts.mobile
+from students,contacts
+where students.sid=contacts.sid;
+
+create view students_contacts as
+select students.sid,students.sname,students.branch,students.perc,contacts.email,contacts.mobile
+[Ifrom students,contacts
+where students.sid=contacts.sid;
+
+show tables;
+select * from students_contacts;
+
+drop view students_contacts;
+
+
+create view students_contacts as
+select students.sid,students.sname,students.branch,contacts.email,contacts.mobile,students.perc
+from students,contacts
+where students.sid=contacts.sid;
 
 
 
