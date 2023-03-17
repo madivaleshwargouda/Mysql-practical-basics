@@ -1,3 +1,45 @@
+what is RDS Relational database serviceis a web service that make it 
+easier to set up, operate and relational database in the cloud
+
+How many types of RDS are there in AWS?
+MYSQL, MariaDB, Oracle Database and SQL, Amazon Aurora
+
+================  SQL COMMAND
+DDL(Data definition Language)= create, drop, alter, truncate
+	Create =it is used to create a new table in the database.
+	Drop   =It is used to delete both the structure and record stored in the tsble.
+	ALter = It is used to alter the structure of the database.
+	        ALTER TABLE table_name ADD column_name COLUMN-definition;
+
+	truncate = it is used to delete all the rows from the table and free
+		    the space containing the table.
+
+DML(Data manipulation language)= Insert, update, Delete
+	 INSERT: The INSERT statement is a SQL query. It is used to insert 
+		data into the row of a table.
+	 UPDATE: This command is used to update or modify the value
+		 of a column in the table.
+	 DELETE: It is used to remove one or more row from a table.
+
+DCL(Data control language)= grant, revoke
+	Grant: It is used to give user access privileges to a database
+	Revoke: It is used to take back permissions from the user.
+
+TCL(Transaction control language)= commit, rollback, save point
+	Commit: Commit command is used to save all the transactions to 
+		the database.
+	Rollback: Rollback command is used to undo transactions that have 
+		not already been saved to the database.
+	SAVEPOINT: It is used to roll the transaction back to a certain point 
+		without rolling back the entire transaction.
+
+DQL(Data query language)= Select
+	SELECT: This is the same as the projection operation of relational algebra.
+
+
+
+
+
 CRUD
 
 
